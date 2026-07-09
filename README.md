@@ -68,6 +68,7 @@ cd frontend && npm test
 - Docker  
 - Tests E2E  
 - PostgreSQL en producción (migración trivial vía Prisma)  
+- Detalles en la UX
 
 ## Límites CSV (UI)
 

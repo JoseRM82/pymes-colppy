@@ -90,7 +90,7 @@ export function MonthSalesTable({
       );
       cancelEdit();
       alert('Enviado con éxito');
-      if (payload.fecha && payload.fecha.slice(0, 7) !== selectedMonth) {
+      if (Object.keys(payload).length > 0) {
         onMonthChange?.();
       }
     } catch {

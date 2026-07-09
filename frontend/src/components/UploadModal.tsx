@@ -50,6 +50,7 @@ export function UploadModal({
   const [loading, setLoading] = useState(false);
   const [formMsg, setFormMsg] = useState<PanelMessage | null>(null);
   const [csvMsg, setCsvMsg] = useState<PanelMessage | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const fileRef = useRef<HTMLInputElement>(null);
 
   const formValid = validateFormVenta({
@@ -111,8 +112,18 @@ export function UploadModal({
     }
   };
 
+  const handleFileSelect = (file: File | undefined) => {
+    if (!file || loading) return;
+    setSelectedFile(file);
+    setCsvMsg(null);
+  };
+
+  const submitCsv = async () => {
+    if (!selectedFile || loading) return;
+    await handleFile(selectedFile);
+  };
+
   const handleFile = async (file: File) => {
-    if (loading) return;
     if (file.size > CSV_MAX_BYTES) {
       alert('El archivo supera el límite de 5 MB.');
       return;
@@ -171,6 +182,8 @@ export function UploadModal({
           text: `Cargado con éxito (${insertadas} venta(s) nueva(s))`,
           tone: 'success',
         });
+        setSelectedFile(null);
+        if (fileRef.current) fileRef.current.value = '';
         onSuccess();
       } else if (parsed.valid.length > 0) {
         setCsvMsg({
@@ -188,7 +201,6 @@ export function UploadModal({
     } finally {
       setLoading(false);
       setBlockClose(false);
-      if (fileRef.current) fileRef.current.value = '';
     }
   };
 
@@ -321,11 +333,21 @@ export function UploadModal({
                 type="file"
                 accept=".csv"
                 disabled={loading}
-                onChange={(e) => {
-                  const f = e.target.files?.[0];
-                  if (f) void handleFile(f);
-                }}
+                onChange={(e) => handleFileSelect(e.target.files?.[0])}
               />
+              {selectedFile && (
+                <p className="selected-file-name">{selectedFile.name}</p>
+              )}
+              {selectedFile && (
+                <button
+                  type="button"
+                  className="btn-primary"
+                  disabled={loading}
+                  onClick={() => void submitCsv()}
+                >
+                  Subir
+                </button>
+              )}
             </div>
             <StatusBanner message={csvMsg} />
           </div>
