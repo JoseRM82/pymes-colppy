@@ -1,6 +1,6 @@
 ## Stack elegido
 
-React + Vite + NestJS + TypeScript + SQLite + Prisma + Recharts con opción de migrar a una DB diferente para producción (como PostgreSQL)
+React + Vite ( frontend: por flexibilidad y mejor performance a la hora de mostrar gráficos y tablas en comparación a vue además de permitir escalar la aplicacion a cosas más complejas), NestJS + TypeScript (backend: se mantiene el uso de JS en el proyecto, más orden y mejor organización tanto desde inicio al tener una estructura de API, como para posibles escalas futuras en complejidad), SQLite + Prisma (para el ejercicio era una opcion ideal para no contar con una base de datos completa, de facil integracion con Nest y con facil reinicio permitiendo migrarla a PostgreSQL para producción con facilidad),  Recharts.
 
 ## Requisitos
 
