@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ConflictException } from '@nestjs/common';
-import { VentasService } from './ventas.service';
-import { PrismaService } from '../prisma/prisma.service';
+import { VentasService } from '../../src/ventas/ventas.service';
+import { PrismaService } from '../../src/prisma/prisma.service';
 
 describe('VentasService', () => {
   let service: VentasService;

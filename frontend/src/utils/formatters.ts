@@ -5,6 +5,20 @@ export function formatNumber(value: number): string {
   });
 }
 
+/** Etiquetas del eje Y: compactas y sin decimales para que no se corten. */
+export function formatAxisNumber(value: number): string {
+  const abs = Math.abs(value);
+  if (abs >= 1_000_000) {
+    const millions = value / 1_000_000;
+    return `${millions.toLocaleString('es-AR', { maximumFractionDigits: 1 })} M`;
+  }
+  if (abs >= 10_000) {
+    const thousands = value / 1_000;
+    return `${thousands.toLocaleString('es-AR', { maximumFractionDigits: 0 })} mil`;
+  }
+  return value.toLocaleString('es-AR', { maximumFractionDigits: 0 });
+}
+
 export function formatImporte(importe: number): string {
   return formatNumber(importe);
 }

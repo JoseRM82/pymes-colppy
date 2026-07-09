@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { dedupeVentas, validateRow } from './csvParser';
+import { dedupeVentas, validateRow } from '../../src/utils/csvParser';
 
 describe('csvParser', () => {
   it('rechaza fecha futura', () => {

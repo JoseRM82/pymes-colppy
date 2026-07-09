@@ -12,7 +12,7 @@ import { getCurrentMonth, buildMonthWindow } from '../utils/dateUtils';
 import { buildYScale, shortMonthLabel } from '../utils/chartScale';
 import {
   formatImporte,
-  formatNumber,
+  formatAxisNumber,
   formatPercentChange,
 } from '../utils/formatters';
 
@@ -155,14 +155,15 @@ export function MonthlyChart({ mode, onModeChange, mensual, anual }: Props) {
         </button>
       </div>
       <ResponsiveContainer width="100%" height={320}>
-        <LineChart data={points} margin={{ top: 10, right: 20, left: 10, bottom: 0 }}>
+        <LineChart data={points} margin={{ top: 10, right: 20, left: 4, bottom: 0 }}>
           <CartesianGrid strokeDasharray="4 4" vertical={false} stroke="var(--pyme-border)" />
           <XAxis dataKey="label" tick={{ fill: 'var(--pyme-text-muted)', fontSize: 12 }} />
           <YAxis
+            width={72}
             domain={[0, maxY]}
             ticks={ticks}
-            tickFormatter={(v) => formatNumber(v)}
-            tick={{ fill: 'var(--pyme-text-muted)', fontSize: 12 }}
+            tickFormatter={(v) => formatAxisNumber(v)}
+            tick={{ fill: 'var(--pyme-text-muted)', fontSize: 11 }}
           />
           <Tooltip content={<CustomTooltip points={points} />} />
           <Line
