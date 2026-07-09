@@ -350,6 +350,14 @@ tbody tr:nth-child(even) {
   gap: 0.75rem;
 }
 
+.upload-file-input {
+  display: none;
+}
+
+.upload-file-label {
+  cursor: pointer;
+}
+
 .selected-file-name {
   margin: 0;
   font-size: 0.9rem;

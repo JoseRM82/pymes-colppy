@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { dedupeVentas, validateRow } from '../../src/utils/csvParser';
+import { dedupeVentas, validateFormVenta, validateRow } from '../../src/utils/csvParser';
 
 describe('csvParser', () => {
   it('rechaza fecha futura', () => {
@@ -31,5 +31,20 @@ describe('csvParser', () => {
     };
     const result = dedupeVentas([row, row]);
     expect(result).toHaveLength(1);
+  });
+
+  it('valida formulario con importe numérico sin decimales visibles', () => {
+    expect(
+      validateFormVenta({
+        id_venta: 'V-1278',
+        fecha: '2026-06-28',
+        cliente: 'New Client',
+        producto: 'Arroz x10',
+        cantidad: 200,
+        moneda: '$',
+        importe: 680000,
+        medio_pago: 'transferencia',
+      }),
+    ).toBe(true);
   });
 });

@@ -58,9 +58,9 @@ export function UploadModal({
     fecha: form.fecha ?? '',
     cliente: form.cliente ?? '',
     producto: form.producto ?? '',
-    cantidad: Number(form.cantidad),
+    cantidad: form.cantidad,
     moneda: form.moneda?.trim() || '$',
-    importe: Number(normalizeDecimalInput(String(form.importe ?? ''))),
+    importe: form.importe,
     medio_pago: form.medio_pago as MedioPago,
   });
 
@@ -330,11 +330,16 @@ export function UploadModal({
             <div className="upload-zone">
               <input
                 ref={fileRef}
+                id="csv-upload-input"
                 type="file"
                 accept=".csv"
                 disabled={loading}
+                className="upload-file-input"
                 onChange={(e) => handleFileSelect(e.target.files?.[0])}
               />
+              <label htmlFor="csv-upload-input" className="btn-secondary upload-file-label">
+                {selectedFile ? 'Elegir otro archivo' : 'Elegir archivo'}
+              </label>
               {selectedFile && (
                 <p className="selected-file-name">{selectedFile.name}</p>
               )}

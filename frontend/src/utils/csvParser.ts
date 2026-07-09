@@ -138,6 +138,15 @@ export function toExportRow(row: RawRow): RawRow {
   return result;
 }
 
+function importeToValidationString(value: unknown): string {
+  if (value === undefined || value === null || value === '') return '';
+  const normalized = normalizeDecimalInput(String(value));
+  if (/^\d+(\.\d{2})$/.test(normalized)) return normalized;
+  const num = Number(normalized);
+  if (Number.isNaN(num)) return normalized;
+  return num.toFixed(2);
+}
+
 export function validateFormVenta(data: Partial<Venta>): data is Venta {
   const row: RawRow = {
     id_venta: data.id_venta ?? '',
@@ -145,10 +154,7 @@ export function validateFormVenta(data: Partial<Venta>): data is Venta {
     cliente: data.cliente ?? '',
     producto: data.producto ?? '',
     cantidad: data.cantidad !== undefined ? String(data.cantidad) : '',
-    importe:
-      data.importe !== undefined
-        ? normalizeDecimalInput(String(data.importe))
-        : '',
+    importe: importeToValidationString(data.importe),
     medio_pago: data.medio_pago ?? '',
     moneda: data.moneda ?? '',
   };
