@@ -1,0 +1,24 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Venta {
+  idVenta   String   @id @map("id_venta")
+  fecha     DateTime
+  cliente   String
+  producto  String
+  cantidad  Int
+  moneda    String   @default("$")
+  importe   Decimal
+  medioPago String   @map("medio_pago")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([fecha])
+  @@index([cliente])
+  @@map("ventas")
+}
